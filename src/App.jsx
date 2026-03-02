@@ -153,7 +153,7 @@ function App() {
       </main>
 
       <footer className="w-100 p-3 text-center text-white mt-auto" style={{ backgroundColor: '#10621A' }}>
-        <p className="mb-0">© 2024 alimentos pronalfrut - Dashboard Mockup</p>
+        <p className="mb-0">© 2026 alimentos pronalfrut - Dashboard Mockup</p>
       </footer>
     </div>
   );
