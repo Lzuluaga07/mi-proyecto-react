@@ -5,6 +5,8 @@ function App() {
   const [seleccionadas, setSeleccionadas] = useState([]);
   const [presentacionElegida, setPresentacionElegida] = useState(null);
 
+  // Colores Pronalfrut: Verde (#10621A), Morado (#6a1b9a), Blanco (#FFFFFF), Negro (#212529)
+
   const frutas = [
     {
       id: 1, nombre: 'Naranja', emoji: '🍊',
@@ -56,56 +58,65 @@ function App() {
   };
 
   return (
-    <div className="d-flex flex-column align-items-center w-100" style={{ minHeight: '100vh' }}>
-  <header className="w-100 p-4 text-center text-white shadow" style={{ backgroundColor: '#10621A' }}>
-        <h1 style={{ fontWeight: 'bold' }}>alimentos pronalfrut</h1>
-        <p className="mb-0">Propuesta de Rediseño - Mockup Funcional</p>
+    <div className="d-flex flex-column align-items-center w-100" style={{ minHeight: '100vh', backgroundColor: '#FFFFFF', color: '#212529' }}>
+      
+      {/* HEADER: Verde Pronalfrut */}
+      <header className="w-100 p-4 text-center text-white shadow" style={{ backgroundColor: '#10621A', borderBottom: '5px solid #6a1b9a' }}>
+        <h1 style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>alimentos pronalfrut</h1>
+        <p className="mb-0">Mockup Profesional - Responsive Design</p>
       </header>
 
       <main className="container text-center py-5" style={{ maxWidth: '1200px' }}>
         
+        {/* ESTADO DINÁMICO */}
         <div className="alert shadow-sm mb-4" style={{ 
-          fontSize: '1.5rem', 
-          color: '#10621A', 
-          backgroundColor: seleccionadas.length > 0 ? '#e8f5e9' : '#ffebee',
-          border: seleccionadas.length > 0 ? '1px solid #c8e6c9' : '1px solid #ffcdd2'
+          fontSize: '1.3rem', 
+          color: '#212529', 
+          backgroundColor: seleccionadas.length > 0 ? '#f1f8e9' : '#fff3e0',
+          border: '1px solid #10621A'
         }}>
           {obtenerEstadoEmoji()}
-          {presentacionElegida && <div style={{ fontSize: '1rem', marginTop: '5px' }}>📍 Presentación: {presentaciones.find(p => p.id === presentacionElegida).tamano} seleccionada</div>}
+          {presentacionElegida && (
+            <div className="mt-2 fw-bold" style={{ color: '#6a1b9a' }}>
+              📍 Presentación: {presentaciones.find(p => p.id === presentacionElegida).tamano} seleccionada
+            </div>
+          )}
         </div>
 
+        {/* BOTONES DE ACCIÓN */}
         <div className="mb-5">
-          <button className="btn btn-success me-3 shadow-sm" onClick={seleccionarTodas}>
-            Seleccionar Todas las Frutas ✅
+          <button className="btn me-3 shadow-sm text-white" style={{ backgroundColor: '#10621A' }} onClick={seleccionarTodas}>
+            Seleccionar Todas ✅
           </button>
-          <button className="btn btn-danger shadow-sm" onClick={eliminarSeleccion}>
+          <button className="btn btn-outline-dark shadow-sm" onClick={eliminarSeleccion}>
             Limpiar Todo 🗑️
           </button>
         </div>
 
-        <h2 className="mb-4" style={{ color: '#10621A' }}>Nuestras Frutas y Beneficios</h2>
+        <h2 className="mb-4 fw-bold" style={{ color: '#10621A' }}>Nuestras Frutas y Beneficios</h2>
 
+        {/* CARDS DE FRUTAS: Responsive (1 col en móvil, 3 en PC) */}
         <div className="row g-4 justify-content-center">
           {frutas.map((fruta) => (
-            <div key={fruta.id} className="col-md-4">
+            <div key={fruta.id} className="col-12 col-md-4">
               <div 
-                className="card h-100 shadow-sm border-0"
+                className="card h-100 shadow-sm"
                 style={{
                   cursor: 'pointer',
                   transition: '0.3s',
-                  backgroundColor: seleccionadas.includes(fruta.id) ? '#dcedc8' : 'white',
-                  border: seleccionadas.includes(fruta.id) ? '3px solid #10621A' : '1px solid #eee',
-                  transform: seleccionadas.includes(fruta.id) ? 'scale(1.05)' : 'scale(1)'
+                  backgroundColor: seleccionadas.includes(fruta.id) ? '#f1f8e9' : 'white',
+                  border: seleccionadas.includes(fruta.id) ? '3px solid #6a1b9a' : '1px solid #eee',
+                  borderRadius: '15px'
                 }}
                 onClick={() => toggleFruta(fruta.id)}
               >
                 <div className="card-body">
-                  <div className="mb-3" style={{ fontSize: '4rem' }}>{fruta.emoji}</div>
-                  <h3 className="card-title h4" style={{ color: '#10621A' }}>{fruta.nombre}</h3>
-                  <div className="text-start small">
-                    <p className="mb-1"><strong>Remedio:</strong> {fruta.remedio}</p>
-                    <p className="mb-1"><strong>Beneficios:</strong> {fruta.beneficios}</p>
-                    <p><strong>Uso:</strong> {fruta.uso}</p>
+                  <div className="mb-2" style={{ fontSize: '3.5rem' }}>{fruta.emoji}</div>
+                  <h3 className="card-title h4 fw-bold" style={{ color: '#10621A' }}>{fruta.nombre}</h3>
+                  <div className="text-start mt-3" style={{ color: '#212529' }}>
+                    <p className="mb-1 small"><strong>Remedio:</strong> {fruta.remedio}</p>
+                    <p className="mb-1 small"><strong>Beneficios:</strong> {fruta.beneficios}</p>
+                    <p className="small"><strong>Uso:</strong> {fruta.uso}</p>
                   </div>
                 </div>
               </div>
@@ -113,9 +124,9 @@ function App() {
           ))}
         </div>
 
-        {/* SECCIÓN DE PRESENTACIONES INTERACTIVAS */}
+        {/* PRESENTACIONES: Responsive Grid */}
         <div className="mt-5 pt-4">
-          <h2 className="mb-4" style={{ color: '#10621A' }}>Presentaciones Disponibles</h2>
+          <h2 className="mb-4 fw-bold" style={{ color: '#10621A' }}>Presentaciones Disponibles</h2>
           <div className="row justify-content-center g-3">
             {presentaciones.map((pres) => (
               <div key={pres.id} className="col-6 col-md-2">
@@ -124,44 +135,45 @@ function App() {
                   style={{ 
                     cursor: 'pointer',
                     transition: '0.2s',
-                    backgroundColor: presentacionElegida === pres.id ? '#10621A' : '#f1f8e9',
-                    color: presentacionElegida === pres.id ? 'white' : 'black',
-                    border: presentacionElegida === pres.id ? '2px solid #084111' : '1px solid #c8e6c9'
+                    backgroundColor: presentacionElegida === pres.id ? '#6a1b9a' : '#FFFFFF',
+                    color: presentacionElegida === pres.id ? 'white' : '#212529',
+                    border: presentacionElegida === pres.id ? '2px solid #6a1b9a' : '1px solid #10621A'
                   }}
                   onClick={() => setPresentacionElegida(pres.id)}
                 >
-                  <div className="fw-bold" style={{ fontSize: '1.2rem' }}>{pres.tamano}</div>
-                  <div className={presentacionElegida === pres.id ? 'text-white-50 small' : 'text-muted small'}>
-                    {pres.uso}
-                  </div>
+                  <div className="fw-bold" style={{ fontSize: '1.1rem' }}>{pres.tamano}</div>
+                  <div className="small opacity-75">{pres.uso}</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-5 p-4 border rounded shadow-sm bg-white border-primary">
-  <p className="fw-bold" style={{ color: '#10621A' }}>¿Deseas ver el reporte detallado?</p>
- <a href="/Proyecto-react/sprint_2.docx?v=update" download="sprint_2.docx" style={{ textDecoration: 'none' }}>
-  <button className="btn btn-lg text-white" style={{ backgroundColor: '#6a1b9a', borderRadius: '50px', padding: '12px 40px', fontWeight: 'bold' }}>
-    Descargar Sprint 2 📄🚀
-  </button>
-</a>
-</div>
+        {/* SECCIÓN DE DESCARGA: Morado Pronalfrut */}
+        <div className="mt-5 p-5 border rounded shadow-sm bg-white" style={{ borderColor: '#10621A' }}>
+          <p className="fw-bold fs-5" style={{ color: '#10621A' }}>¿Deseas ver el reporte detallado?</p>
+          <a 
+            href={`/Proyecto-react/sprint_2.docx?v=${new Date().getTime()}`} 
+            download="sprint_2.docx" 
+            style={{ textDecoration: 'none' }}
+          >
+            <button 
+              className="btn btn-lg text-white shadow" 
+              style={{ backgroundColor: '#6a1b9a', borderRadius: '50px', padding: '15px 50px', fontWeight: 'bold' }}
+            >
+              Descargar Sprint 2 📄🚀
+            </button>
+          </a>
+        </div>
 
       </main>
 
+      {/* FOOTER: Verde Pronalfrut */}
       <footer className="w-100 p-3 text-center text-white mt-auto" style={{ backgroundColor: '#10621A' }}>
-        <p className="mb-0">© 2026 alimentos pronalfrut - Dashboard Mockup</p>
+        <p className="mb-0">© 2026 alimentos pronalfrut - Calidad Natural</p>
       </footer>
     </div>
   );
 }
 
-
 export default App;
-
-
-
-
-
