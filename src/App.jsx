@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   const [seleccionadas, setSeleccionadas] = useState([]);
   const [presentacionElegida, setPresentacionElegida] = useState(null);
-
+const [cantidades, setCantidades] = useState({});
   // Colores Pronalfrut: Verde (#10621A), Morado (#6a1b9a), Blanco (#FFFFFF), Negro (#212529)
 
   const frutas = [
@@ -55,6 +55,12 @@ function App() {
     if (seleccionadas.length === 0) return '😢 No has seleccionado ninguna fruta...';
     if (seleccionadas.length === 1) return '😊 ¡Excelente elección de fruta!';
     return '🤩 ¡Wow! ¡Qué felicidad ver tantas frutas!';
+  };
+const modificarCantidad = (id, delta) => {
+    setCantidades(prev => ({
+      ...prev,
+      [id]: Math.max(0, (prev[id] || 0) + delta)
+    }));
   };
 
   return (
@@ -117,6 +123,27 @@ function App() {
                     <p className="mb-1 small"><strong>Remedio:</strong> {fruta.remedio}</p>
                     <p className="mb-1 small"><strong>Beneficios:</strong> {fruta.beneficios}</p>
                     <p className="small"><strong>Uso:</strong> {fruta.uso}</p>
+               {/* Selector de Unidades/Kilos */}
+                    <div className="d-flex align-items-center justify-content-between mt-3 p-2 rounded border bg-light">
+                      <span className="small fw-bold text-dark">Pedir (lb/kg):</span>
+                      <div className="d-flex align-items-center">
+                        <button 
+                          className="btn btn-sm btn-outline-danger fw-bold shadow-sm"
+                          onClick={(e) => { e.stopPropagation(); modificarCantidad(fruta.id, -1); }}
+                          style={{ width: '30px' }}
+                        > - </button>
+                        
+                        <span className="mx-3 fw-bold" style={{ minWidth: '20px', textAlign: 'center' }}>
+                          {cantidades[fruta.id] || 0}
+                        </span>
+                        
+                        <button 
+                          className="btn btn-sm btn-outline-success fw-bold shadow-sm"
+                          onClick={(e) => { e.stopPropagation(); modificarCantidad(fruta.id, 1); }}
+                          style={{ width: '30px' }}
+                        > + </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
