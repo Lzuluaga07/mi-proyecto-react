@@ -58,7 +58,7 @@ function App() {
   };
 
   return (
-    <div className="d-flex flex-column align-items-center w-100" style={{ minHeight: '100vh', backgroundColor: '#FFFFFF', color: '#212529' }}>
+    <div className="d-flex flex-column align-items-center w-100" style={{ minHeight: '100vh', backgroundColor: '#FFFFFF', color: '#212529', fontFamily: '"Montserrat", sans-serif' }}>
       
       {/* HEADER: Verde Pronalfrut */}
       <header className="w-100 p-4 text-center text-white shadow" style={{ backgroundColor: '#10621A', borderBottom: '5px solid #6a1b9a' }}>
